@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%; width: 100%">
-    <el-form :rules="rules" ref="loginForm" :model="loginForm" v-loading="loading" class="loginContainer">
+    <el-form :rules="rules" ref="loginForm" :model="loginForm" class="loginContainer">
       <h3 class="loginTitle">系统登录</h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" placeholder="请输入用户名" @keydown.enter.native="fnLogin"/>
@@ -49,16 +49,15 @@
       fnLogin () {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
-            this.loading = true;
             this.postRequest('/login', this.loginForm).then(res => {
               if (res) {
                 this.loading = false;
                 const tokenStr = res.obj.tokenHead + res.obj.token;
-                // 存储token
+                // 存储token，以供别处使用
                 window.sessionStorage.setItem("tokenStr", tokenStr);
-                // 跳转首页
+                
                 let path = this.$route.query.redirect;
-                //replace
+                // 跳转首页，replace为替换页面，无法通过浏览器后退按钮回到上一页
                 this.$router.replace((path === '/' || path === undefined) ? '/home' : path);
               } else {
                 this.fnUpdateCaptcha()

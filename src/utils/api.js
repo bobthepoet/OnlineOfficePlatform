@@ -6,8 +6,9 @@ import router from '../router'
 
 // 请求拦截器
 axios.interceptors.request.use(success => {
-  // 如果存在tokenStr，之后每次请求将携带这个tokenStr
+  // 判断是否存在tokenStr
   if (window.sessionStorage.getItem("tokenStr")) {
+    // 若存在，之后每次请求将携带这个tokenStr,后端会有专门的tokenStr登录拦截器判断有tokenStr并且验证通过说明登录成功过了，后面的接口允许访问
     success.headers['Authorization'] = window.sessionStorage.getItem("tokenStr")
   }
   return success
