@@ -56,8 +56,8 @@
                 // 存储token，以供别处使用
                 window.sessionStorage.setItem("tokenStr", tokenStr);
                 
+                // 跳转首页
                 let path = this.$route.query.redirect;
-                // 跳转首页，replace为替换页面，无法通过浏览器后退按钮回到上一页
                 this.$router.replace((path === '/' || path === undefined) ? '/home' : path);
               } else {
                 this.fnUpdateCaptcha()
