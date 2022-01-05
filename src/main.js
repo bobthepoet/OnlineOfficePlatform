@@ -20,6 +20,7 @@ Vue.prototype.postRequest = postRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.deleteRequest = deleteRequest;
+Vue.prototype.downloadRequest = downloadRequest;
 
 
 router.beforeEach((to, from, next) => {

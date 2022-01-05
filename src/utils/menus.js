@@ -16,9 +16,9 @@ getRequest('/system/cfg/menu').then(res => {
       for (let x of fmtRoutes) {
         router.addRoute(x)
       }
-
+      // 将数据存入vuex
       store.commit('initRoutes', fmtRoutes);
-
+      
       // 连接WebSocket
       store.dispatch('connect');
     }

@@ -3,7 +3,9 @@
     <el-container>
       <el-header class="homeHeader">
         <div class="title">在线办公系统</div>
-        <el-dropdown class="userInfo" @command="commandHandler">
+        <div>
+          <el-button @click="goChat" icon="el-icon-bell" type="text" size="normal" style="margin-right:8px;color:black"></el-button>
+          <el-dropdown class="userInfo" @command="commandHandler">
           <span class="el-dropdown-link">
             {{ user.name }}
             <i>
@@ -16,6 +18,7 @@
             <el-dropdown-item command="logout">注销登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
+        </div>
       </el-header>
       <el-container>
         <el-aside width="200px">
@@ -65,15 +68,21 @@ export default {
   data() {
     return {
       // 转成对象
-      user: JSON.parse(window.sessionStorage.getItem("user")),
+      // user: JSON.parse(window.sessionStorage.getItem("user")),
     };
   },
   computed: {
     routes() {
       return this.$store.state.routes;
     },
+    user(){
+      return this.$store.state.currentAdmin;
+    }
   },
   methods: {
+    goChat(){
+       this.$router.push('/chat');
+    },
     commandHandler(command) {
       if (command == "logout") {
         this.$confirm("此操作将注销登录, 是否继续?", "提示", {
@@ -98,6 +107,9 @@ export default {
               message: "已取消删除",
             });
           });
+      }
+      if(command=='userinfo'){
+        this.$router.push('/userinfo');
       }
     },
   },
